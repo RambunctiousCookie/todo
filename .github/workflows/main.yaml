@@ -1,19 +1,22 @@
-name: Todo Workflow
+name: Release and Deploy Todo
 
 #trigger
 on:
-- push
+ push
   branches:
-    - release/*
+  - "release/*"
   # paths:
-  #   - release/*
+  # - release/*
 
 jobs:
-  todo-workflow:
+  release-and-deploy:
     runs-on: ubuntu-latest
+    # if: github.ref == 'refs/heads/release'
 
     steps:
-    - name: checkout the correct branch
+    - name: echo the branch name
+      run: echo "current branch - ${{ github.ref_name }}"
+    - name: checkout the branch
       uses: actions/checkout@v3
       with:
-        ref: release
+        ref: ${{ github.ref_name }}
