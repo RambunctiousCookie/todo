@@ -4,7 +4,9 @@ name: Release and Deploy Todo
 on:
  push:
   branches:
-  - 'release/**'
+  - 'release/*'
+  # This is not a segment; the branch name must start with release/ and then * is the wildcard
+
   # - 'release/[A-Za-z0-9.]+'
   # paths:
   # - release/*
@@ -13,7 +15,6 @@ jobs:
   release-and-deploy:
     runs-on: ubuntu-latest
     # if: github.ref == 'refs/heads/release'
-
     steps:
     - name: echo the branch name
       run: echo "current branch - ${{ github.ref_name }}"
@@ -21,3 +22,13 @@ jobs:
       uses: actions/checkout@v3
       with:
         ref: ${{ github.ref_name }}
+    - name: deploy to vercel
+      uses: amondnet/vercel-action@v25.1.0
+      with:
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        github-token: ${{ secrets.GH_TOKEN }}
+        vercel-org-id: ${{ secrets.ORG_ID }}
+        vercel-project-id: ${{ secrets.PROJ_ID }}
+        vercel-args: '--prod'
+
+        
