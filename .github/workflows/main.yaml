@@ -4,7 +4,8 @@ name: Release and Deploy Todo
 on:
  push:
   branches:
-  - 'release/[A-Za-z0-9.]+'
+  - 'release/**'
+  # - 'release/[A-Za-z0-9.]+'
   # paths:
   # - release/*
 
