@@ -1,0 +1,19 @@
+name: Todo Workflow
+
+#trigger
+on:
+- push
+  branches:
+    - release/*
+  # paths:
+  #   - release/*
+
+jobs:
+  todo-workflow:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout the correct branch
+      uses: actions/checkout@v3
+      with:
+        ref: release
